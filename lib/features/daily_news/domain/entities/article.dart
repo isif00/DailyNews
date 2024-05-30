@@ -3,7 +3,7 @@
 import 'package:equatable/equatable.dart';
 
 class ArticleEntity extends Equatable{
-  final int ? id;
+  final String ? id;
   final String ? author;
   final String ? title;
   final String ? content;
