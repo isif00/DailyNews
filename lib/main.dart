@@ -1,3 +1,4 @@
+import 'package:daily_news/config/routes/routes.dart';
 import 'package:daily_news/config/theme/app_theme.dart';
 import 'package:daily_news/features/daily_news/persentation/bloc/article/remote/remote_article_bloc.dart';
 import 'package:daily_news/features/daily_news/persentation/bloc/article/remote/remote_article_event.dart';
@@ -7,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   await initializeDependecies();
   runApp(const MyApp());
 }
@@ -19,6 +21,7 @@ class MyApp extends StatelessWidget {
     return BlocProvider<RemoteArticleBloc>(
       create: (context) => sl()..add(const GetArticle()),
       child: MaterialApp(
+        onGenerateRoute: AppRoutes.onGenerateRoutes,
         debugShowCheckedModeBanner: false,
         home: const DailyNews(),
         theme: theme(),
@@ -26,5 +29,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
-

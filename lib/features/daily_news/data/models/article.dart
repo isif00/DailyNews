@@ -1,38 +1,43 @@
 import 'package:daily_news/core/constants/constants.dart';
 import 'package:daily_news/features/daily_news/domain/entities/article.dart';
+import 'package:floor/floor.dart';
 
-
+@Entity(tableName: 'article', primaryKeys: ['id'])
 class ArticleModel extends ArticleEntity {
   const ArticleModel({
-    required String id,
-    required String author,
-    required String title,
-    required String content,
-    required String description,
-    required String url,
-    required String urlToImage,
-    required String publishedAt,
-  }) : super(
-          id: id,
-          author: author,
-          title: title,
-          content: content,
-          description: description,
-          url: url,
-          urlToImage: urlToImage,
-          publishedAt: publishedAt,
-        );
+    super.id,
+    super.author,
+    super.title,
+    super.description,
+    super.url,
+    super.urlToImage,
+    super.publishedAt,
+    super.content,
+  });
 
-  factory ArticleModel.fromJson(Map<String, dynamic> json) {
+  factory ArticleModel.fromJson(Map<String, dynamic> map) {
     return ArticleModel(
-      id: json['source']['id'] ?? '',
-      author: json['author'] ?? '',
-      title: json['title'] ?? '',
-      description: json['description'] ?? '',
-      url: json['url'] ?? '',
-      urlToImage: json['urlToImage'] ?? kDefaultImage,
-      publishedAt: json['publishedAt'] ?? '',
-      content: json['content'] ?? '',
+      author: map['author'] ?? "",
+      title: map['title'] ?? "",
+      description: map['description'] ?? "",
+      url: map['url'] ?? "",
+      urlToImage: map['urlToImage'] != null && map['urlToImage'] != ""
+          ? map['urlToImage']
+          : kDefaultImage,
+      publishedAt: map['publishedAt'] ?? "",
+      content: map['content'] ?? "",
     );
+  }
+
+  factory ArticleModel.fromEntity(ArticleEntity entity) {
+    return ArticleModel(
+        id: entity.id,
+        author: entity.author,
+        title: entity.title,
+        description: entity.description,
+        url: entity.url,
+        urlToImage: entity.urlToImage,
+        publishedAt: entity.publishedAt,
+        content: entity.content);
   }
 }
